@@ -1,10 +1,10 @@
+package Homework1;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
- * Created by chelp on 11.03.2017.
- */
+
 public class Homework1Task5 {
     public static void main(String[] args) throws IOException{
         char c; double veneraWeight;
