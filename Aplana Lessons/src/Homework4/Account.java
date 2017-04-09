@@ -6,18 +6,33 @@ import java.util.List;
 /**
  * Created by chelp on 29.03.2017.
  */
-public class Account {
+public class Account{
 
 
 
-    private static List<Clients> rAcc=new ArrayList<>();
-    private static List<Clients> cAcc=new ArrayList<>();
 
-    public static void setrAcc(Clients rAccCl) {
-        rAcc.add(rAccCl);
+
+    private static ArrayList<Double> rAcc=new ArrayList<>();
+    private static List<Double> cAcc=new ArrayList<>();
+
+
+
+    public static void setrAcc(Double getClient) {
+        rAcc.add(getClient);
     }
 
-    public static void setcAcc(Clients cAccCl) {
+    public static void setcAcc(Double cAccCl) {
        cAcc.add(cAccCl);
     }
+
+    public static List<Double> getrAcc() {
+        return rAcc;
+    }
+
+    public static List<Double> getcAcc() {
+        return cAcc;
+    }
+
+
+
 }

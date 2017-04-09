@@ -6,8 +6,13 @@ package Homework4;
 public class Bank {
     private String bankName;
 
+    public Bank(String bankName) {
+        this.bankName = bankName;
+    }
+
+
     public String getBankName() {
-        System.out.println("Банк "+bankName+" приветствует Вас.");
+        //System.out.println("Банк "+bankName);
         return bankName;
     }
 
