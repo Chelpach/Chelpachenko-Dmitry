@@ -95,6 +95,9 @@ public class Main {
                 byte choice2=scanner4.nextByte();
                 if (choice2==1){
                  b.setCheckAccount(0);
+                 Account acnt=new Account();
+                 acnt.setFirstName(b.getFirstName());
+                 acnt.setLastName(b.getLastName());
                 }else if (choice2==2){
                     b.setCurrentAccount(0);
                 }else{
@@ -134,6 +137,9 @@ public class Main {
                 if (Clients.searchClient(lastNameScan3)==null) System.out.println("Клиент не найден");
                 else Clients.searchClient(lastNameScan3);
                 Client cc=Clients.searchClient(lastNameScan3).get(0);
+
+
+
                 System.out.println("Какой счёт необходимо пополнить?");
                 System.out.println("1-расчётный, 2-текущий");
                 byte choice3=scanner6.nextByte();
@@ -141,6 +147,7 @@ public class Main {
                 double choice4=scanner7.nextDouble();
                 if (choice3==1){
                 cc.setCheckAccount(cc.getCheckAccount()+choice4);
+
                 cc.setrAcc(choice4);
             }else if (choice3==2){
                 cc.setCurrentAccount(cc.getCurrentAccount()+choice4);
@@ -172,6 +179,7 @@ public class Main {
                     ccc.setrAcc(summ);
 
                     ccc1.setCheckAccount(ccc1.getCheckAccount()+summ);
+
                     ccc1.setrAcc(summ);
 
                 }else if (choice5==2){
@@ -187,7 +195,7 @@ public class Main {
                 else Clients.searchClient(lastNameScan6);
                 Client ccc6=Clients.searchClient(lastNameScan6).get(0);
 
-                write(fileName, Client.rAccPrint(Client.getrAcc());
+                write(fileName, ccc6.rAccPrint(Client.getrAcc()));
                 break;
             case 8:
                 break;

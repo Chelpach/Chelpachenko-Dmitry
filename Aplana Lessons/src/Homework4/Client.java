@@ -76,11 +76,12 @@ public class Client {
         cAcc.add(cAccCl);
     }
 
-    public static void rAccPrint(ArrayList<Double> rAcc){
+    public static String rAccPrint(ArrayList<Double> rAcc){
+        String st="";
         for (Double x:rAcc
              ) {
-            System.out.println("транзакция"+x);
-        }
+            st=st+x+"/n";
+        }return st;
     }
 
     public static ArrayList<Double> getrAcc() {
@@ -90,6 +91,5 @@ public class Client {
     public static List<Double> getcAcc() {
         return cAcc;
     }
-
 
 }
