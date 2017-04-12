@@ -38,8 +38,15 @@ public class Clients {
             if (x.getLastName().equalsIgnoreCase(string)){
                 searchClient.add(x);
             }
-        }if (searchClient.size()==0){return null;}
-        return searchClient;
+        }if (searchClient.size()==0) {
+            for (Client x : clientsSoln) {
+                if (x.getLastName().equalsIgnoreCase(string)) {
+                    searchClient.add(x);
+                }
+            } if (searchClient.size()==0) return null;
+        }return searchClient;
     }
+
+
 
 }

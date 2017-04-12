@@ -54,6 +54,9 @@ public class Main {
           String fileName = "F:/a.txt";
         byte choice,choice1;
         String lastNameScan;
+
+
+        //Главное меню
         do {
             System.out.println("Выберите нужное действие: ");
             System.out.println("1-Новый клиент");
@@ -65,12 +68,13 @@ public class Main {
             System.out.println("7-Выгрузка в файл всех операций клиента");
             System.out.println("8-Выход");
             choice=scanner.nextByte();
-
+//Выбор действия
         switch (choice){
-            case 1:
+            case 1://Создание нового клиента
                 System.out.println("Выберите в какой банк будете заводить клиента:");
                 System.out.println("1-"+ roga.getBankName()+" или 2-"+soln.getBankName());
                 choice1=scanner.nextByte();
+
                 if(choice1==1){
                    Client clientRoga=addClient(scanner2);
                     Clients.setClientsRoga(clientRoga);
@@ -80,17 +84,18 @@ public class Main {
                     Clients.setClientsSoln(clientSoln);
                     System.out.println();
                 }else {
-                    System.out.println("Вы ввели не верный ID банка");
+                    System.err.println("Банк который вы ввели не существует, попробуйте заново");
+                    System.out.println();
                 }break;
+
             case 2:
                 System.out.println("Введите Фамилию клиента, которому требуется завести счёт:");
                 lastNameScan=scanner2.nextLine();
-                //тут поиск по одному банку
-                if (Clients.searchClient(lastNameScan)==null) {System.out.println("Клиент не найден");
+                if (Clients.searchClient(lastNameScan)==null) {System.err.println("Клиент не найден");
                     System.out.println();break;}
-                else Clients.searchClient(lastNameScan);
                 Client b=Clients.searchClient(lastNameScan).get(0);
-                System.out.println("Какой счёт необходимо создать?");
+
+                System.out.println("Какой счёт необходимо открыть?");
                 System.out.println("1-расчётный, 2-текущий");
                 byte choice2=scanner4.nextByte();
                 if (choice2==1){
@@ -221,6 +226,8 @@ public class Main {
         String firstName=scanner.nextLine();
         return new Client(lastName,firstName);
     }
+
+
 
     public static void write(String fileName, String text) {
         //Определяем файл
