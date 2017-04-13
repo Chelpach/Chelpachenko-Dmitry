@@ -68,19 +68,19 @@ public class Client {
     private static ArrayList<Double> rAcc=new ArrayList<>();
     private static List<Double> cAcc=new ArrayList<>();
 
-    public static void setrAcc(Double getClient) {
+    public  void setrAcc(Double getClient) {
         rAcc.add(getClient);
     }
 
-    public static void setcAcc(Double cAccCl) {
+    public  void setcAcc(Double cAccCl) {
         cAcc.add(cAccCl);
     }
 
-    public static String rAccPrint(ArrayList<Double> rAcc){
+    public String rAccPrint(ArrayList<Double> rAcc){
         String st="";
         for (Double x:rAcc
              ) {
-            st=st+x+"/n";
+            st=st+x;
         }return st;
     }
 
