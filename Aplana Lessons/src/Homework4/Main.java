@@ -34,8 +34,6 @@ public class Main {
     public static void main(String args[]) {
         Bank roga= new Bank("ООО Рога и копыта");
         Bank soln=new Bank("ООО Солнышко");
-        //System.out.println("Заведите клиента в один из банков");
-        //System.out.println("В какой из Банков завести клиента: Рога/Солнышко");
         Scanner scanner=new Scanner(System.in);
         Scanner scanner2=new Scanner(System.in);
         Scanner scanner3=new Scanner(System.in);
@@ -47,6 +45,7 @@ public class Main {
         Scanner scanner9=new Scanner(System.in);
         Scanner scanner10=new Scanner(System.in);
         Scanner scanner11=new Scanner(System.in);
+        Scanner scanner12=new Scanner(System.in);
         String text = "";
         String fileName = "F:/a.txt";
         byte choice;
@@ -66,7 +65,7 @@ public class Main {
             System.out.println("7-Выгрузка в файл всех операций клиента");
             System.out.println("8-Выход");
             choice=scanner.nextByte();
-//Выбор действия
+            //Выбор действия
             switch (choice){
                 case 1://Создание нового клиента
                     System.out.println("Выберите в какой банк будете заводить клиента:");
@@ -74,12 +73,14 @@ public class Main {
                     choice1=scanner.nextByte();
 
                     if(choice1==1){
-                        Client clientRoga=addClient(scanner2);
-                        Clients.setClientsRoga(clientRoga);
+                        Client client=addClient(scanner2);
+                        client.setBank(choice1);
+                        Clients.setClients(client);
                         System.out.println();
                     }else if(choice1==2){
-                        Client clientSoln=addClient(scanner2);
-                        Clients.setClientsSoln(clientSoln);
+                        Client client=addClient(scanner2);
+                        client.setBank(choice1);
+                        Clients.setClients(client);
                         System.out.println();
                     }else {
                         System.err.println("Банк который вы ввели не существует, попробуйте заново");
@@ -111,9 +112,9 @@ public class Main {
 
                 case 3:
                     System.out.println("Клиенты банка "+roga.getBankName()+":");
-                    showClients(Clients.getClientsRoga());
+                    showClients(Clients.getClients(),(byte) 1);
                     System.out.println("Клиенты банка: "+soln.getBankName()+":");
-                    showClients(Clients.getClientsSoln());
+                    showClients(Clients.getClients(),(byte) 2);
                     System.out.println();
                     break;
 
@@ -185,39 +186,37 @@ public class Main {
                     Byte choice6=scanner10.nextByte();
 
                     //свой счёт, свои одинаковые счета
-                    if (ccc.equals(ccc1)&(choice5==choice6)){
-                        System.out.println("Перевод на один и тот же счёт одному клиенту");
+                    if (ccc.getBank()!=ccc1.getBank()){
+                        System.out.println("Комиссия 5%= "+summ*0.05+". Полная сумма списания = "+ summ*1.05);
+                        System.out.println("Подтвердить платёж: Да/Нет");
+                        String ch=scanner12.nextLine();
+                        if (ch.equalsIgnoreCase("Да")){
+                        Transfer.betweenDifferentBanks(ccc,ccc1,summ,choice5,choice6);}
+                        else break;
+                    }else if(ccc.equals(ccc1) & (choice5.equals(choice6))){
+                        Transfer.theSameClientAccount();
+                    }else if(!ccc.equals(ccc1)&(choice5.equals(choice6))){
+                        System.out.println("Комиссия 0%= "+0+". Полная сумма списания = "+ summ);
+                        System.out.println("Подтвердить платёж: Да/Нет");
+                        String ch=scanner12.nextLine();
+                        if (ch.equalsIgnoreCase("Да")){
+                        Transfer.betweenDifferentClientTheSameAccount(ccc,ccc1,summ,choice5);}
+                        else break;
+                    }else if((ccc.equals(ccc1) & (!choice5.equals(choice6)))){
+                        System.out.println("Комиссия 0%= "+0+". Полная сумма списания = "+ summ);
+                        String ch=scanner12.nextLine();
+                        if (ch.equalsIgnoreCase("Да")){
+                        Transfer.betweenClientAccount(ccc,summ,choice5);}
+                        else break;
+                    }else if(!ccc.equals(ccc1)&(!choice5.equals(choice6))){
+                        System.out.println("Комиссия 1%= "+summ*0.01+". Полная сумма списания = "+ summ*1.01);
+                        String ch=scanner12.nextLine();
+                        if (ch.equalsIgnoreCase("Да")) {
+                            Transfer.betweenDifferentClientDifferentAccount(ccc, ccc1, summ, choice5);
+                        }else break;
                     }
-
-                    //свой счёт, свои различные счета
-
-                    if (ccc.equals(ccc1)&(choice5!=choice6)){
-                        //betweenClientAccount(ccc,ccc1,summ,choice5);
-                        if (choice5==1){
-                            ccc.setCheckAccount(ccc.getCheckAccount()-summ);
-                            ccc.setrAcc(-summ);
-
-                            ccc.setCurrentAccount(ccc.getCurrentAccount()+summ);
-                            ccc.setcAcc(+summ);
-
-                        }else if (choice5==2){
-                            ccc.setCurrentAccount(ccc.getCurrentAccount()-summ);
-                            ccc.setcAcc(-summ);
-
-                            ccc.setCheckAccount(ccc.getCheckAccount()+summ);
-                            ccc1.setrAcc(summ);
-
-                        }else{
-                            System.out.println("Вы ввели не верный тип счёта");
-                        }
-
-                    }
-
-                    //чужой счёт, одинаковые типы счёта
-
-
-
                     break;
+
                 case 7:
                     System.out.println("Введите фамилию клиента:");
                     String lastNameScan6=scanner8.nextLine();
@@ -225,8 +224,9 @@ public class Main {
                         System.out.println();break;}
                     Client ccc6=Clients.searchClient(lastNameScan6).get(0);
 
-                    write(fileName, ccc6.rAccPrint(Client.getrAcc()));
+                    write(fileName, ccc6.getrAcc().toString(),ccc6.getcAcc().toString());
                     break;
+
                 case 8:
                     break;
             }
@@ -234,16 +234,17 @@ public class Main {
 
     }
 
-    private static void showClients(List<Client> clients){
-        if (clients.size()==0){
+    private static void showClients(List<Client> clients, byte choice) {
+        if (clients.size() == 0) {
             System.out.println("Нет клиентов");
         } else {
-            for (Client x:clients){
-                System.out.println(x.toString());
+            for (Client x : clients) {
+                if (x.getBank() == choice) {
+                    System.out.println(x.toString());
+                }
             }
         }
     }
-
     private static Client addClient (Scanner scanner){
         System.out.println("Введите фамилию:");
         String lastName=scanner.nextLine();
@@ -251,9 +252,7 @@ public class Main {
         String firstName=scanner.nextLine();
         return new Client(lastName,firstName);
     }
-
-
-    private static void write(String fileName, String text) {
+    private static void write(String fileName, String text, String text2) {
         //Определяем файл
         File file = new File(fileName);
 
@@ -268,7 +267,10 @@ public class Main {
 
             try {
                 //Записываем текст в файл
+                out.println("Список операций по расчетному счёту");
                 out.print(text);
+                out.println("Список операций по текущему счёту");
+                out.print(text2);
             } finally {
                 //После чего мы должны закрыть файл
                 //Иначе файл не запишется
@@ -279,10 +281,6 @@ public class Main {
         }
     }
 
-    private static void betweenClientAccount(Client ccc, Client ccc1, double summ, String choice5){
-       // System.out.println("Мы пришли сюда");
-
-    }
 
 
 }

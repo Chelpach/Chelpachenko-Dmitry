@@ -9,32 +9,22 @@ import java.util.List;
  */
 public class Clients {
 
-    private static List<Client> clientsRoga=new ArrayList<>();
+    private static List<Client> clients=new ArrayList<>();
     private static List<Client> clientsSoln=new ArrayList<>();
 
 
 
-    public static void setClientsRoga(Client clientRoga) {
-        clientsRoga.add(clientRoga);
+    public static void setClients(Client clientRoga) {
+        clients.add(clientRoga);
     }
 
-    public static void setClientsSoln(Client clientSoln) {
-        clientsSoln.add(clientSoln);
+    public static List<Client> getClients() {
+        return clients;
     }
-
-
-    public static List<Client> getClientsRoga() {
-        return clientsRoga;
-    }
-
-    public static List<Client> getClientsSoln() {
-        return clientsSoln;
-    }
-
 
     public static List<Client> searchClient (String string){
         List<Client> searchClient =new ArrayList<>();
-        for (Client x: clientsRoga){
+        for (Client x: clients){
             if (x.getLastName().equalsIgnoreCase(string)){
                 searchClient.add(x);
             }

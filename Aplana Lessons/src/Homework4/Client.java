@@ -9,16 +9,20 @@ import java.util.List;
 public class Client {
     private String lastName;
     private String firstName;
+    private byte bank;
 
+    public byte getBank() {
+        return bank;
+    }
 
-
+    public void setBank(byte bank) {
+        this.bank = bank;
+    }
 
     public Client(String lastName, String firstName) {
         this.lastName = lastName;
         this.firstName = firstName;
     }
-
-
 
     public String getFirstName() {
         return firstName;
@@ -35,7 +39,6 @@ public class Client {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
 
     @Override
     public String toString() {
@@ -65,8 +68,9 @@ public class Client {
         this.currentAccount = currentAccount;
     }
 
-    private static ArrayList<Double> rAcc=new ArrayList<>();
-    private static List<Double> cAcc=new ArrayList<>();
+    private  ArrayList<Double> rAcc=new ArrayList<>();
+    private ArrayList<Double> cAcc=new ArrayList<>();
+
 
     public  void setrAcc(Double getClient) {
         rAcc.add(getClient);
@@ -76,19 +80,11 @@ public class Client {
         cAcc.add(cAccCl);
     }
 
-    public String rAccPrint(ArrayList<Double> rAcc){
-        String st="";
-        for (Double x:rAcc
-             ) {
-            st=st+x;
-        }return st;
-    }
-
-    public static ArrayList<Double> getrAcc() {
+    public  ArrayList<Double> getrAcc() {
         return rAcc;
     }
 
-    public static List<Double> getcAcc() {
+    public ArrayList<Double> getcAcc() {
         return cAcc;
     }
 
